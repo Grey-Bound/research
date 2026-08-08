@@ -1,4 +1,4 @@
-# Bitcoin Production Readiness:  
+# BITCOIN PRODUCTION READINESS:  
 What every engineering team should validate before launch
 
 GreyBound Engineering · August 2026
