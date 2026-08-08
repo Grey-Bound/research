@@ -25,7 +25,7 @@ This article outlines the areas that should be validated before launch.
 
 ---
 
-## 1. Define the Production Scope
+## 1. Define the production scope
 
 Before reviewing individual components, clearly define what makes up the production system.
 
@@ -61,7 +61,7 @@ Production readiness needs to consider the system as a whole.
 
 ---
 
-## 2. Review Wallet and Key Management Architecture
+## 2. Review wallet and key management architecture
 
 Wallet architecture deserves particular attention because mistakes can become financial liabilities.
 
@@ -100,7 +100,7 @@ A recovery procedure that has never been tested is an assumption, not a recovery
 
 ---
 
-## 3. Validate Transaction and Payment Flows
+## 3. Validate transaction and payment flows
 
 A Bitcoin payment system needs to handle more than successful transactions.
 
@@ -165,7 +165,7 @@ Monitoring should detect more than whether the process is alive. Useful signals 
 
 ---
 
-## 5. Validate Backend and API Security
+## 5. Validate backend and API security
 
 Not every production risk originates inside Bitcoin-specific components.  
 The surrounding backend can introduce equally serious problems.
@@ -193,7 +193,7 @@ A production API should not expose sensitive implementation details, credentials
 
 ---
 
-## 6. Build for Failure, Not Just Normal Operation
+## 6. Build for failure, not just normal operation
 
 Production readiness is largely about failure handling.
 
@@ -241,7 +241,7 @@ Observability should help the team move from “something is wrong” to “this
 
 ---
 
-## 8. Test Backups and Disaster Recovery
+## 8. Test backups and disaster recovery
 
 Having backups is not the same as having recoverability.
 
@@ -261,7 +261,7 @@ Recovery procedures should be tested before they are needed.
 
 ---
 
-## 9. Review Operational Security
+## 9. Review operational security
 
 Production security extends beyond application vulnerabilities.
 
@@ -281,7 +281,7 @@ A technically secure application can still be exposed through an overly permissi
 
 ---
 
-## 10. Prepare for Real Transaction Volume
+## 10. Prepare for real transaction volume
 
 Infrastructure that works with a small test workload may behave very differently in production.
 
@@ -303,7 +303,7 @@ The goal is to understand where the current architecture will fail and what need
 
 ---
 
-## A Practical Production Readiness Review
+## A Practical production readiness review
 
 A useful review should result in more than a list of technical observations.
 
@@ -328,7 +328,7 @@ This turns a technical review into an actionable engineering plan.
 
 ---
 
-## Production Readiness Is a System Property
+## Production readiness is a system property
 
 There is rarely one configuration change that makes a Bitcoin product production-ready.
 
@@ -342,7 +342,7 @@ That is why production readiness should be reviewed as a system rather than as a
 
 ---
 
-## Production Readiness Checklist
+## Production readiness checklist
 
 Before launch, your team should be able to answer “yes” to questions such as:
 
