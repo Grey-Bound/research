@@ -1,7 +1,7 @@
 # Bitcoin Production Readiness:  
-What Every Engineering Team Should Validate Before Launch
+What every engineering team should validate before launch
 
-Greybound Engineering · August 2026
+GreyBound Engineering · August 2026
 
 ---
 
