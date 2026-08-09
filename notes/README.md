@@ -9,4 +9,4 @@
 ## Builder track
 
 1. [PSBT mistakes](101-psbt-mistakes.md)
-2. [DLC and adaptor intuition](102-dlc-adaptor-intuition.md)
+2. [Adaptor signatures and Taproot contracts](102-dlc-adaptor-intuition.md)

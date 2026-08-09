@@ -1,7 +1,7 @@
 # PSBT mistakes Bitcoin developers keep making
 
 **GreyBound Research · 101**  
-**Companion lab:** [taproot-dlc-lab / Signer](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab)
+**Code:** [taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab) (`Signer/`)
 
 ---
 
@@ -86,10 +86,6 @@ This is a practical list of misuse patterns at moderate depth—enough to catch 
 - [ ] Locktime/sequence shown when relevant  
 - [ ] Network/HRP explicit  
 - [ ] No secrets in logs  
-
-## Lab
-
-[taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab) includes an offline signer that inspects Taproot leaves and signs PSBTs for swap/lending recovery scenarios. Use it to practice decode-before-sign—not as a blind production wallet.
 
 ## References
 
