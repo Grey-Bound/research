@@ -1,7 +1,7 @@
 # Adaptor signatures and Taproot contracts
 
 **GreyBound Research · 102**  
-**Code:** [taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab)
+**Code:** [taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab) · [psbt-signer](https://github.com/Grey-Bound/opensource/tree/main/psbt-signer)
 
 ---
 
@@ -55,16 +55,16 @@ Correct PSBTs still matter: wrong control block, wrong leaf, or ignored locktime
 - Blind-signing server-built PSBTs without decoding leaves
 - Copying swap claim semantics onto lending/collateral trees without reading the attestation model
 
-## What the open lab includes
+## Open code
 
-Builders, adaptor helpers, offline signer, and design notes (`PROTOCOL.md`).  
-Matching, hosted APIs, and operations stay out of the public tree on purpose.
+- **taproot-dlc-lab** — builders, adaptor helpers, `PROTOCOL.md`
+- **psbt-signer** — offline PSBT inspect/sign (sibling project)
 
 ```bash
 cd taproot-dlc-lab && source .venv/bin/activate
 export PYTHONPATH=.
 python3 dlc_v2_builder/test_roundtrip.py
-python3 Signer/signer.py
+python3 ../psbt-signer/signer.py
 ```
 
 ## References

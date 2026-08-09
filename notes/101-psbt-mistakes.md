@@ -1,7 +1,7 @@
 # PSBT mistakes Bitcoin developers keep making
 
 **GreyBound Research · 101**  
-**Code:** [taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab) (`Signer/`)
+**Code:** [psbt-signer](https://github.com/Grey-Bound/opensource/tree/main/psbt-signer)
 
 ---
 
@@ -39,7 +39,7 @@ This is a practical list of misuse patterns at moderate depth—enough to catch 
 
 **Correct:** Rebuild or independently decode: inputs owned by the user, output scripts and amounts, fee rate, inscription/postage lines. Treat the server as hostile ([002](002-metaprotocol-indexer-trust.md)).
 
-**Lab:** Use `Signer/` mode that analyzes Tapscript leaves before signing—do not skip the decode step in product UX either.
+**Practice:** [psbt-signer](https://github.com/Grey-Bound/opensource/tree/main/psbt-signer) can decode Taproot leaves before signing; product UX should not skip that step either.
 
 ## 5. Finalization vs signing confusion
 
