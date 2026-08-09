@@ -9,6 +9,8 @@
 
 This note explains BIP-340 **adaptor signatures** used with **Taproot** contract outputs in the Discreet Log Contract design space. There is no Bitcoin standard called “DLC v2.”
 
+The open builders are a **research lab**, not a production-audited stack. Lending repay paths are server-gated; do not treat them as the same trust model as mutual swap claim/extract.
+
 For PSBT handling mistakes that break these flows in practice, see [101](101-psbt-mistakes.md).
 
 ## Adaptor signatures in one page
