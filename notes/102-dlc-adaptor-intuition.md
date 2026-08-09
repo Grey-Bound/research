@@ -7,7 +7,7 @@
 
 ## Scope
 
-This note explains BIP-340 **adaptor signatures** used with **Taproot** contract outputs in the Discreet Log Contract design space. It is not a standard called “DLC v2”—that phrase only appears in some of our package directory names as history.
+This note explains BIP-340 **adaptor signatures** used with **Taproot** contract outputs in the Discreet Log Contract design space. There is no Bitcoin standard called “DLC v2.”
 
 For PSBT handling mistakes that break these flows in practice, see [101](101-psbt-mistakes.md).
 
@@ -24,14 +24,15 @@ With a BIP-340 adaptor construction:
 
 If a party broadcasts a claim that required `t`, they publish `t`. That extractability is the atomic hinge—when the protocol actually uses it.
 
-## Two constructions in the lab (not “standard versions”)
+## What the lab implements
 
-| Construction | Where in the lab | Trust hinge |
-|--------------|------------------|-------------|
-| Coordinator co-sign (older) | `dlc_builder/` | A second key often held by an operator must co-sign |
-| Adaptor-signature (current) | `dlc_v2_builder/` | Claim completeness reveals `t`; address uses NUMS internal key and script paths |
+| Piece | Where | Trust hinge |
+|-------|-------|-------------|
+| Swap / loan-delivery builder | `dlc_builder/` | Claim completeness reveals `t`; NUMS internal key; script-path spends |
+| Collateral builder | `lending_dlc_builder/` | Three-leaf tree; attestation mode matters |
+| Offline PSBT tool | `psbt-signer/` (sibling) | Decode leaves before signing |
 
-Both sit in the DLC / adaptor literature. Neither is a BIP-numbered “DLC version.” If a product still needs an operator co-sign on every claim, say so; do not market it as purely cryptographic atomicity.
+Older coordinator co-sign claim scripts (adaptor key on-script) are not shipped. If a product still needs an operator co-sign on every claim, say so; do not market it as purely cryptographic atomicity.
 
 ## Taproot output shape (adaptor construction)
 
@@ -42,7 +43,7 @@ Typical script paths in the lab builder:
 
 Internal key: NUMS (no known discrete log), so spends are expected via script paths.
 
-Adaptor point `T` is kept off-chain in the adaptor construction; it does not need to be embedded in the address.
+Adaptor point `T` is kept off-chain; it does not need to be embedded in the address.
 
 Correct PSBTs still matter: wrong control block, wrong leaf, or ignored locktime strands funds even when adaptor math is correct.
 
@@ -63,7 +64,7 @@ Correct PSBTs still matter: wrong control block, wrong leaf, or ignored locktime
 ```bash
 cd taproot-dlc-lab && source .venv/bin/activate
 export PYTHONPATH=.
-python3 dlc_v2_builder/test_roundtrip.py
+python3 dlc_builder/test_roundtrip.py
 python3 ../psbt-signer/signer.py
 ```
 
