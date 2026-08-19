@@ -1,6 +1,6 @@
 # GreyBound Research
 
-Engineering research from [Greybound](https://greybound.com) on Bitcoin systems that run on mainnet.
+Engineering research from [Greybound](https://greybound.tech) on Bitcoin systems that run on mainnet.
 
 ## Security track
 
