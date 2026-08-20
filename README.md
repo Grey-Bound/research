@@ -9,6 +9,8 @@ Engineering research from [Greybound](https://greybound.tech) on Bitcoin systems
 | [001](notes/001-wallet-app-threat-model.md) | Wallet application threat model |
 | [002](notes/002-metaprotocol-indexer-trust.md) | Metaprotocol & indexer trust |
 | [003](notes/003-bitcoin-app-backend-hardening.md) | Bitcoin app backend hardening |
+| [004](notes/004-walletconnect-confirm-binding.md) | WalletConnect confirm binding |
+
 
 ## Builder track
 
