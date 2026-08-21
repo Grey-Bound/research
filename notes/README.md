@@ -12,3 +12,4 @@
 
 1. [PSBT mistakes](101-psbt-mistakes.md)
 2. [Adaptor signatures and Taproot contracts](102-dlc-adaptor-intuition.md)
+3. [Classic k-of-n (P2WSH)](103-classic-p2wsh-multisig.md)
