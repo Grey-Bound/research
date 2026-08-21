@@ -19,6 +19,7 @@ Engineering research from [Greybound](https://greybound.tech) on Bitcoin systems
 |------|--------|
 | [101](notes/101-psbt-mistakes.md) | PSBT misuse patterns |
 | [102](notes/102-dlc-adaptor-intuition.md) | Adaptor signatures and Taproot contracts |
+| [103](notes/103-classic-p2wsh-multisig.md) | Classic k-of-n (P2WSH) |
 
 Companion lab: [taproot-dlc-lab](https://github.com/Grey-Bound/opensource/tree/main/taproot-dlc-lab) in [Grey-Bound/opensource](https://github.com/Grey-Bound/opensource).
 
