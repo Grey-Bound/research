@@ -87,6 +87,12 @@ This is a practical list of misuse patterns at moderate depth—enough to catch 
 - [ ] Network/HRP explicit  
 - [ ] No secrets in logs  
 
+## Related notes
+
+- [001](001-wallet-app-threat-model.md) — preview → sign
+- [005](005-silent-payment-destination-binding.md) — BIP-352 output must follow the approved Silent Payment address, not a host `scriptPubKey`
+- [103](103-classic-p2wsh-multisig.md) — classic k-of-n around this PSBT pipeline
+
 ## References
 
 - [BIP 174 — PSBT](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)
