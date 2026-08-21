@@ -100,7 +100,7 @@ Hostile-host is the default assumption for hardware wallet review. “User alrea
 - [ ] Approval bound to SP address string the device showed
 - [ ] Host cannot supply an alternate output that still signs
 - [ ] Verify failure blocks signature
-- [ ] Golden vectors + hostile-host mutation tests in CI
+- [ ] Golden vectors + hostile-host mutation tests in  CI
 - [ ] Advisory scope read per edition (not inferred from sibling CVEs)
 
 ## 10. Related notes
