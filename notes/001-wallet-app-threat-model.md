@@ -268,6 +268,9 @@ Below ~70% Done is not a branding problem; it is a launch risk.
 
 - [002 — Metaprotocol and indexer trust](002-metaprotocol-indexer-trust.md) when the wallet surfaces inscriptions or metaprotocol balances  
 - [003 — Bitcoin app backend hardening](003-bitcoin-app-backend-hardening.md) when a server can influence invoices, webhooks, or templates  
+- [004 — WalletConnect confirm binding](004-walletconnect-confirm-binding.md) for EVM session preview → sign  
+- [005 — Silent Payment destination binding](005-silent-payment-destination-binding.md) when the signer builds BIP-352 outputs
+- [103 — Classic k-of-n (P2WSH)](103-classic-p2wsh-multisig.md) when the product is a threshold vault
 
 ## References
 
