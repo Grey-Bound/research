@@ -1,4 +1,4 @@
-# Silent payment destination binding
+# Silent Payment destination binding
 
 **GreyBound Research · 005**  
 **Status:** living note  
@@ -8,39 +8,49 @@
 
 ## 1. Intent
 
-This note is the Bitcoin Silent Payment instance of [001 §5.5](./001-wallet-app-threat-model.md): preview → sign is the critical boundary. [004](./004-walletconnect-confirm-binding.md) is the EVM-session form. Same rule: the object signed must be the payment the user approved.
+This note is the Bitcoin Silent Payment instance of [001 §5.5](001-wallet-app-threat-model.md): preview → sign is the critical boundary. [004](004-walletconnect-confirm-binding.md) is the EVM-session form. Same rule: the object signed must be the payment the user approved.
 
-In August 2026, Shift Crypto (BitBox) published the Dixence firmware update (`9.26.5`) and disclosed a Silent Payment implementation issue found in internal audit. Official framing: a malicious host involved while creating a transaction to a Silent Payment address could cause funds to land on an unintended payment address. Direct one-click theft to an attacker-controlled wallet was not claimed. Recovery would require cooperation — lock / ransom class, not “drained to attacker.”
+On 17 August 2026, Shift Crypto AG (BitBox) published the Dixence firmware update (9.26.5) and disclosed a Silent Payment implementation issue found during internal audits. Official framing: while creating a transaction to a Silent Payment address, a malicious host could cause funds to land on an unintended payment address. Direct theft of funds was not possible via this issue (vendor wording). Recovery would require cooperation between attacker and recipient — lock / ransom class, not spend-to-attacker.
 
 This note extracts the engineering property. It is not a vendor autopsy, not a loss tally, and not a claim that self-custody failed. Dixence also covered other firmware issues with different affected editions and preconditions; those are out of scope here except where they remind reviewers to read “who is affected” carefully.
 
-Primary source: [BitBox Dixence update](https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/) (17 Aug 2026). No public exploitation was reported by the vendor.
+Primary source: [BitBox 08.2026 Dixence update](https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/) (17 Aug 2026). The vendor reported no failed Silent Payments from users and no reason to believe this issue was exploited.
 
-## 2. Why silent payments change the binding problem
+## 2. Why Silent Payments change the binding problem
 
-On a normal send, the host proposes a `scriptPubKey` the user can (in principle) verify on-device against an address string. BIP-352 Silent Payments are different: the spendable output is derived from the recipient’s Silent Payment address and material that only the spending wallet’s private keys can produce. The device is not only a signer; it participates in constructing the destination.
+On a normal send, the host proposes a `scriptPubKey` the user can (in principle) verify on-device against an address string. BIP-352 Silent Payments are different: the spendable output is a taproot output derived from the recipient’s Silent Payment address (scan and spend public keys) and a shared secret that uses the sender’s input private keys. The device is not only a signer; it participates in constructing the destination.
 
-That makes host honesty about “where this goes” harder to check with a naive address reprint. It does not relax the rule. Privacy features still need **fail-closed** destination binding. The host is not the source of truth for the output that will be committed on-chain.
+That makes host honesty about “where this goes” harder to check with a naive address reprint. It does not relax the rule. Privacy features still need fail-closed destination binding. The host is not the source of truth for the output that will be committed on-chain.
 
-BitBox’s earlier public SP writeups also describe host-side checks (e.g. DLEQ-style proofs that the device used consistent key material). Complementary verification is useful. Proofs do not replace binding the approved SP address to the signed output.
+BitBox’s earlier public SP writeups ([Understanding Silent Payments — Part Two](https://blog.bitbox.swiss/en/understanding-silent-payments-part-two/)) describe Discrete Logarithm Equality (DLEQ) proofs so the *host* can check that the *device* used consistent key material when building the output (anti-klepto class). That is complementary. It is not destination binding: it does not prove that the output follows from the Silent Payment address the user approved on the trusted display. Do not treat DLEQ (or similar proofs) as a substitute for that bind.
 
 ## 3. What the disclosure stated (and what it did not)
 
+Dixence’s TL;DR names **two severe** firmware issues (bootloader class, already fixed in Oeschinen 9.26.2; memory corruption on Multi, fixed in 9.26.5). The Silent Payment issue is described separately as **potentially severe**. Do not collapse those ratings.
+
 | Claim | Per BitBox Dixence |
 | --- | --- |
-| Trigger class | Transaction to a Silent Payment address with a malicious host |
-| Impact class | Funds locked to an unintended payment address; potential ransom via cooperation |
-| Direct theft | Not possible via this issue (vendor wording) |
-| Discovery | Internal audit |
-| Exploitation | No reports / no reason to believe it was exploited |
-| Fix | Firmware **9.26.5** (Dixence) |
-| SP-affected range (vendor) | BitBox02 and BitBox02 Nova, firmware **9.21.0** through **9.26.4**, for the SP send path above |
+| Trigger class | User created a transaction to a Silent Payment address together with a malicious host |
+| Impact class | Funds locked to an unintended payment address; potential ransom (attacker and recipient must cooperate to recover) |
+| Direct theft | “There is no direct theft of funds possible” |
+| Discovery | Internal audits (BitBox engineers; the post also describes frontier AI as part of that review program) |
+| Exploitation | No reports of failed Silent Payments from users; no reason to believe it was exploited |
+| Fix | Firmware 9.26.5 (Dixence) |
+| SP-affected range (vendor) | BitBox02 and BitBox02 Nova, firmware **9.21.0 through 9.26.4**, for the SP send path above (`may be affected`) |
 
-What the disclosure did **not** give (at publication of Dixence): a public root-cause writeup, PoC, or CVE-style technical appendix. Do not invent one in reviews or marketing. Cite the blog; treat missing mechanics as unknown until BitBox (or a coordinated writeup) publishes them.
+What the disclosure did not give (at publication of Dixence): a public root-cause writeup, PoC, or CVE-style technical appendix. Do not invent one in reviews or marketing. Cite the blog; treat missing mechanics as unknown until BitBox (or a coordinated writeup) publishes them.
 
 ## 4. Scope discipline
 
-Dixence bundled more than Silent Payments. Memory-corruption and bootloader issues in the same post have **different** edition and setup preconditions. Bitcoin-only firmware is called out as unaffected for at least one of those non-SP issues because the vulnerable code path is absent. Silent Payment send support is a Bitcoin feature; do not collapse “Bitcoin-only is safer for issue A” into “Bitcoin-only is out of scope for SP binding.”
+Dixence bundled more than Silent Payments. Memory-corruption and bootloader issues in the same post have different edition and setup preconditions:
+
+| Issue | Who (vendor) | Precondition |
+| --- | --- | --- |
+| Bootloader (reclassified in Dixence; fixed in Oeschinen **9.26.2**) | BitBox02 on firmware through **9.26.1**. BitBox02 Nova **not affected** | Malicious app + malicious firmware; user installs it and unlocks |
+| Memory corruption | **Multi** edition of BitBox02 and BitBox02 Nova through **9.26.4**. Bitcoin-only **not affected** (code path absent) | No wallet set up yet; malicious host |
+| Silent Payment send | BitBox02 **and** BitBox02 Nova, **9.21.0–9.26.4** | Transaction to a Silent Payment address with a malicious host |
+
+Silent Payment send is a Bitcoin feature. Do not collapse “Bitcoin-only is unaffected for the Multi memory issue” into “Bitcoin-only is out of scope for SP binding.”
 
 Review habit: for every advisory, extract a matrix — edition, firmware range, user action required, host assumption — before drawing product lessons.
 
@@ -56,7 +66,7 @@ Review habit: for every advisory, extract a matrix — edition, firmware range, 
 | Proofs (DLEQ / anti-klepto-class) | Optional integrity aid between host and device; not a substitute for binding approval → output |
 | Mismatch / incomplete verify | Fail closed: no signature |
 
-Same object identity rule as [001 §5.5](./001-wallet-app-threat-model.md) and [101](./101-psbt-mistakes.md): preview is not a commitment unless it is bound to the bytes that will be signed.
+Same object identity rule as [001 §5.5](001-wallet-app-threat-model.md) and [101](101-psbt-mistakes.md): preview is not a commitment unless it is bound to the bytes that will be signed.
 
 ## 6. What to check in review
 
@@ -76,11 +86,11 @@ Hostile-host is the default assumption for hardware wallet review. “User alrea
 
 ## 7. Hardening direction
 
-- Treat Silent Payment send as a first-class policy path, not a stringly-typed address that falls through to “trust host scriptPubKey.”
+- Treat Silent Payment send as a first-class policy path, not a stringly-typed address that falls through to “trust host `scriptPubKey`.”
 - Keep derivation and binding on the side that holds the spend keys, with explicit on-device confirmation of the SP address.
 - Fail closed on any proof, parse, or re-derive mismatch.
 - Document edition differences; never assume “Bitcoin-only” or “Nova” without checking the advisory matrix.
-- Add CI fixtures for SP sends the same way [004](./004-walletconnect-confirm-binding.md) requires fixtures for `transfer` / `approve`: sheet (or device screen) text + committed output.
+- Add CI fixtures for SP sends the same way [004](004-walletconnect-confirm-binding.md) requires fixtures for transfer / approve: sheet (or device screen) text + committed output.
 
 ## 8. Control catalog
 
@@ -96,26 +106,22 @@ Hostile-host is the default assumption for hardware wallet review. “User alrea
 
 ## 9. Self-assessment
 
-- [ ] SP send path traced device-side (not only companion UI)
-- [ ] Approval bound to SP address string the device showed
-- [ ] Host cannot supply an alternate output that still signs
-- [ ] Verify failure blocks signature
-- [ ] Golden vectors + hostile-host mutation tests in  CI
-- [ ] Advisory scope read per edition (not inferred from sibling CVEs)
+- SP send path traced device-side (not only companion UI)
+- Approval bound to SP address string the device showed
+- Host cannot supply an alternate output that still signs
+- Verify failure blocks signature
+- Golden vectors + hostile-host mutation tests in CI
+- Advisory scope read per edition (not inferred from sibling issues in the same post)
 
 ## 10. Related notes
 
-- [001 — Wallet application threat model](./001-wallet-app-threat-model.md) (§5.5 preview → sign)
-- [004 — WalletConnect confirm binding](./004-walletconnect-confirm-binding.md) (same commitment class, EVM session)
-- [101 — PSBT mistakes](./101-psbt-mistakes.md) (preview is not a commitment)
-
-## 11. Residual risk
-
-After these controls, the user still must approve on the trusted display. The goal is narrower: no honest path where a hostile host causes the signed transaction to pay a different Silent Payment-derived output than the one the user approved.
-
-This note is not a warranty that any particular firmware is free of bugs.
+- [001 — Wallet application threat model](001-wallet-app-threat-model.md) (§5.5 preview → sign)
+- [004 — WalletConnect confirm binding](004-walletconnect-confirm-binding.md) (same commitment class, EVM session)
+- [101 — PSBT mistakes](101-psbt-mistakes.md) (preview is not a commitment)
 
 ## References
 
-- [BitBox 08.2026 Dixence update](https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/) — Silent Payment lock of funds; firmware `9.26.5`; affected range `9.21.0`–`9.26.4` for SP send with malicious host
+- [BitBox 08.2026 Dixence update](https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/) — Silent Payment lock of funds; firmware 9.26.5; affected range 9.21.0–9.26.4 for SP send with a malicious host
+- [BitBox — Understanding Silent Payments, Part Two](https://blog.bitbox.swiss/en/understanding-silent-payments-part-two/) — device-built output + DLEQ so the host can verify consistent device key material
 - [BIP 352 — Silent Payments](https://github.com/bitcoin/bips/blob/master/bip-0352.mediawiki)
+- GreyBound Research 001 — preview → sign as the highest-value wallet boundary
