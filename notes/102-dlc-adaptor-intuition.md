@@ -11,7 +11,7 @@ This note explains BIP-340 **adaptor signatures** used with **Taproot** contract
 
 The open builders are a **research lab**, not a production-audited stack. Lending repay paths are server-gated; do not treat them as the same trust model as mutual swap claim/extract.
 
-For PSBT handling mistakes that break these flows in practice, see [101](101-psbt-mistakes.md).
+For PSBT handling mistakes that break these flows in practice, see [101](101-psbt-mistakes.md). For org threshold (`OP_CHECKMULTISIG` / P2WSH), see [103](103-classic-p2wsh-multisig.md) — that is not this construction.
 
 ## Adaptor signatures in one page
 
