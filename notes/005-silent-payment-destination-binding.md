@@ -16,7 +16,7 @@ This note extracts the engineering property. It is not a vendor autopsy, not a l
 
 Primary source: [BitBox Dixence update](https://blog.bitbox.swiss/en/bitbox-08-2026-dixence-update/) (17 Aug 2026). No public exploitation was reported by the vendor.
 
-## 2. Why Silent Payments change the binding problem
+## 2. Why silent payments change the binding problem
 
 On a normal send, the host proposes a `scriptPubKey` the user can (in principle) verify on-device against an address string. BIP-352 Silent Payments are different: the spendable output is derived from the recipient’s Silent Payment address and material that only the spending wallet’s private keys can produce. The device is not only a signer; it participates in constructing the destination.
 
