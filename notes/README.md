@@ -6,6 +6,7 @@
 2. [Metaprotocol and indexer trust](002-metaprotocol-indexer-trust.md)
 3. [Bitcoin app backend hardening](003-bitcoin-app-backend-hardening.md)
 4. [WalletConnect confirm binding](004-walletconnect-confirm-binding.md)
+5. [Silent Payment destination binding](005-silent-payment-destination-binding.md)
 
 ## Builder track
 
