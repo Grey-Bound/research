@@ -10,6 +10,7 @@ Engineering research from [Greybound](https://greybound.tech) on Bitcoin systems
 | [002](notes/002-metaprotocol-indexer-trust.md) | Metaprotocol & indexer trust |
 | [003](notes/003-bitcoin-app-backend-hardening.md) | Bitcoin app backend hardening |
 | [004](notes/004-walletconnect-confirm-binding.md) | WalletConnect confirm binding |
+| [005](notes/005-silent-payment-destination-binding.md) | Silent payment destination binding |
 
 
 ## Builder track
