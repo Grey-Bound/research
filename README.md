@@ -11,6 +11,7 @@ Engineering research from [Greybound](https://greybound.tech) on Bitcoin systems
 | [003](notes/003-bitcoin-app-backend-hardening.md) | Bitcoin app backend hardening |
 | [004](notes/004-walletconnect-confirm-binding.md) | WalletConnect confirm binding |
 | [005](notes/005-silent-payment-destination-binding.md) | Silent payment destination binding |
+| [006](/Grey-Bound/research/blob/main/notes/006-bip322-address-ownership-binding.md) | BIP-322 address ownership binding |
 
 
 ## Builder track
