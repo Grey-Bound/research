@@ -7,6 +7,7 @@
 3. [Bitcoin app backend hardening](003-bitcoin-app-backend-hardening.md)
 4. [WalletConnect confirm binding](004-walletconnect-confirm-binding.md)
 5. [Silent Payment destination binding](005-silent-payment-destination-binding.md)
+6. [BIP-322 address ownership binding](/Grey-Bound/research/blob/main/notes/006-bip322-address-ownership-binding.md)
 
 ## Builder track
 
